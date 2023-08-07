@@ -1,0 +1,32 @@
+// --- Index SCSS Module ---
+
+// Import variables
+@import "../lib/variables";
+
+// Main container
+.main {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+        text-align: center;
+    }
+
+    img {
+        height: 10%;
+    }
+}
+
+// When loading
+.loading {
+    background-color: $c_surface;
+}
+
+// When error
+.error {
+    background-color: $c_failure;
+}
