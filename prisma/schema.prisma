@@ -1,0 +1,71 @@
+// --- Prisma Scheme ---
+
+// Generate the client
+generator client {
+    provider = "prisma-client-js"
+}
+
+// Connect to the database
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+// User information
+model User {
+    id          Int         @id @unique @default(autoincrement())
+    username    String      @unique
+    password    String
+    tokens      Token[]
+
+    groups      Group[]
+    decks       Deck[]
+    cards       Card[]
+}
+
+// User authentication token
+model Token {
+    id          String         @id @unique
+    user        User        @relation(fields: [userId], references: [id])
+    userId      Int
+}
+
+// Flashcard group
+model Group {
+    id          Int         @id @default(autoincrement())
+    user        User        @relation(fields: [userId], references: [id])
+    userId      Int
+    name        String      @unique
+
+    decks       Deck[]
+    cards       Card[]
+}
+
+// Flashcard deck
+model Deck {
+    id          Int             @id @default(autoincrement())
+    user        User            @relation(fields: [userId], references: [id])
+    userId      Int
+    group       Group           @relation(fields: [groupId], references: [id])
+    groupId     Int
+    name        String
+
+    cards       Card[]
+}
+
+// Individual flashcard
+model Card {
+    id          Int             @id @default(autoincrement())
+    user        User            @relation(fields: [userId], references: [id])
+    userId      Int
+    group       Group           @relation(fields: [groupId], references: [id])
+    groupId     Int
+    deck        Deck            @relation(fields: [deckId], references: [id])
+    deckId      Int
+
+    front       String
+    back        String
+    place       Int             @unique
+
+    lastRevised DateTime?
+}
