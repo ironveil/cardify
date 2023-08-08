@@ -44,11 +44,14 @@ export default function Login() {
         fetch("/api/login", { method: "POST", body: JSONdata })
             .then((res) => res.text())
             .then((resData) => {
-
-                console.log(resData)
                 
                 // Check if data returns a 'token'
                 if (resData != "false") {
+
+                    // Remove any old tokens
+                    removeCookie("token")
+
+                    // TODO: Use API to remove old tokens from DB
 
                     // Set token
                     setCookie("token", resData)
@@ -60,6 +63,7 @@ export default function Login() {
                     router.push("/dashboard")
 
                 } else {
+                    
                     // Toggle invalid banner
                     showInvalidCred(true)
 
@@ -88,7 +92,7 @@ export default function Login() {
                 </div>
                 
                 <div className={styles.wrapper}>
-                    
+
                     <div className={styles.logoWrapper}>
                         <img src="/logo.png" />
                         <p>Cardify</p>
