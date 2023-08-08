@@ -1,7 +1,10 @@
 // --- Global SCSS File ---
 
+// Import variables
+@import "../lib/variables";
+
 // Import 'Open Sans' font
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 // Global CSS
 * {
@@ -10,6 +13,12 @@
     box-sizing: border-box;
 
     font-family: 'Open Sans', sans-serif;
+    font-size: $f_body;
+}
+
+// Background color
+body {
+    background-color: $c_surface;
 }
 
 // Hidden elements
