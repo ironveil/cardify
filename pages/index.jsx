@@ -22,14 +22,14 @@ export default function Index() {
     const router = useRouter()
 
     // Check if the login token is valid
-    const { data, error, isLoading } = useSWR([ "/api/checklogin", token ], () => fetcher("/api/checklogin", token))
+    const { data, error, isLoading } = useSWR([ "/api/login/check", token ], () => fetcher("/api/login/check", token))
 
     // If there is an error in loading the token
     if (error) return (
         <div className={styles.error + " " + styles.main}>
             <div>
                 <p>Error</p>
-                <p>{error}</p>
+                <p>{error.toString()}</p>
             </div>
         </div>
     )

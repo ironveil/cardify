@@ -4,12 +4,12 @@
 import bcrypt from "bcrypt"
 
 // Import Prisma DB
-import prisma from "../../lib/prisma"
+import prisma from "../../../lib/prisma"
 
 // Import UUID generator
 import shortUUID from "short-uuid"
 
-// /api/signup
+// /api/login/signup
 export default function handler(req, res) {
 
     // Get data

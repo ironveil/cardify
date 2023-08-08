@@ -1,9 +1,9 @@
 // --- Check Login API Route ---
 
 // Import Prisma DB
-import prisma from "../../lib/prisma"
+import prisma from "../../../lib/prisma"
 
-// /api/checklogin
+// /api/login/check 
 export default function handler(req, res) {
 
     // Get token from header
