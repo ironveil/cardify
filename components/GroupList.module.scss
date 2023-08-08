@@ -1,0 +1,55 @@
+// --- Group List SCSS Module ---
+
+// Import variables
+@import "../lib/variables";
+
+// Group List
+.list {
+    width: $w_groups;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    grid-area: groups;
+
+    background-color: $c_surface;
+}
+
+// Group Item
+.item {
+    width: $w_groups - 32px;
+    height: $w_groups - 32px;
+    margin: 16px 16px 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $c_bg;
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+    
+    transition: $trans;
+
+    &:hover {
+        background-color: $c_accent;
+    }
+
+    // Item Text
+    p {
+        color: $c_fg;
+
+        font-size: $f_group-item;
+    }
+}
+
+// Current Item
+.active {
+    background-color: $c_accent !important;
+}
