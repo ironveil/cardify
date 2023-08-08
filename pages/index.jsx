@@ -15,7 +15,7 @@ const fetcher = (url, token) => fetch(url, { headers: { "Authorization": token }
 export default function Index() {
 
     // Get the token from cookies
-    const cookies = useCookies()
+    const [ cookies ] = useCookies()
     const token = cookies.token
 
     // Alow page navigation
