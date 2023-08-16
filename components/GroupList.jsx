@@ -21,7 +21,7 @@ export default function GroupList({ groups }) {
             <div className={styles.groups}>
 
                 <Link
-                    className={Object.keys(router.query).length === 0 ? styles.item + " " + styles.active : styles.item }
+                    className={Object.keys(router.query).length === 0 && router.pathname === "/dashboard" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard">
 
                     <p>H</p>
@@ -42,6 +42,14 @@ export default function GroupList({ groups }) {
                         )
                     })
                 }
+
+                <Link
+                    className={router.pathname === "/dashboard/settings" ? styles.item + " " + styles.active : styles.item }
+                    href="/dashboard/settings">
+
+                    <p>S</p>
+
+                </Link>
             </div>
         </div>
     )
