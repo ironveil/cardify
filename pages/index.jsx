@@ -18,7 +18,7 @@ export default function Index() {
     const [ cookies ] = useCookies()
     const token = cookies.token
 
-    // Alow page navigation
+    // Allow page navigation
     const router = useRouter()
 
     // Check if the login token is valid
