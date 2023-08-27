@@ -4,12 +4,16 @@
 import { useState } from "react"
 import { useCookies } from "react-cookie"
 import { useRouter } from "next/router"
+import useSWR from 'swr'
 
 import Link from "next/link"
 import Head from "next/head"
 
 // Import styling
 import styles from "./login.module.scss"
+
+// API fetcher
+const fetcher = (url, token) => fetch(url, { headers: { "Authorization": token } }).then((res) => res.json())
 
 // Login page
 export default function Login() {
@@ -20,11 +24,15 @@ export default function Login() {
     // Show banner when invalid credentials
     const [ InvalidCred, showInvalidCred ] = useState(false)
 
-    // Allow the setting of cookies
+    // Allow the getting & setting of cookies
     const [ cookies, setCookie, removeCookie ] = useCookies()
 
     // Allow page navigation
     const router = useRouter()
+
+    // Check if the login token is valid
+    const token = cookies.token
+    const { data, error, isLoading } = useSWR([ "/api/login/check", token ], () => fetcher("/api/login/check", token))
 
     // Login form submit
     function login(e) {
@@ -79,59 +87,68 @@ export default function Login() {
         )
     }
 
-    // Login page
-    return (
-        <>
-            <Head>
-                <title>Login - Cardify</title>
-            </Head>
+    // Check if user is already logged in
+    if (data == true) {
 
-            <div className={styles.main}>
-                <div className={InvalidCred ? styles.invalid : styles.invalid + " hidden"} onClick={() => showInvalidCred(false)}>
-                    <p>Invalid username or password.</p>
-                </div>
-                
-                <div className={styles.wrapper}>
+        // Redirect to dashboard
+        router.push("/dashboard")
 
-                    <div className={styles.logoWrapper}>
-                        <img src="/logo.png" />
-                        <p>Cardify</p>
+    } else if (isLoading == false) {
+
+        // Login page
+        return (
+            <>
+                <Head>
+                    <title>Login - Cardify</title>
+                </Head>
+
+                <div className={styles.main}>
+                    <div className={InvalidCred ? styles.invalid : styles.invalid + " hidden"} onClick={() => showInvalidCred(false)}>
+                        <p>Invalid username or password.</p>
                     </div>
+                    
+                    <div className={styles.wrapper}>
 
-                    <form onSubmit={login}>
-                        <fieldset disabled={SentRequest}>
+                        <div className={styles.logoWrapper}>
+                            <img src="/logo.png" />
+                            <p>Cardify</p>
+                        </div>
 
-                            <label htmlFor="username" className={styles.label}>Username</label>
-                            <input
-                                type="username"
-                                name="username"
-                                id="username"
-                                className={styles.input}
-                                required
-                            />
-                            
-                            <label htmlFor="password" className={styles.label}>Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                className={styles.input}
-                                required
-                            />
+                        <form onSubmit={login}>
+                            <fieldset disabled={SentRequest}>
 
-                            <div>
-                                <Link href="/signup">Sign Up</Link>
+                                <label htmlFor="username" className={styles.label}>Username</label>
+                                <input
+                                    type="username"
+                                    name="username"
+                                    id="username"
+                                    className={styles.input}
+                                    required
+                                />
+                                
+                                <label htmlFor="password" className={styles.label}>Password</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    className={styles.input}
+                                    required
+                                />
 
-                                <button
-                                    type="submit"
-                                    className={ SentRequest ? styles.submit + " " + styles.submitLoading : styles.submit }
-                                >Log In</button>
-                            </div>
+                                <div>
+                                    <Link href="/signup">Sign Up</Link>
 
-                        </fieldset>
-                    </form>
+                                    <button
+                                        type="submit"
+                                        className={ SentRequest ? styles.submit + " " + styles.submitLoading : styles.submit }
+                                    >Log In</button>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
 }
