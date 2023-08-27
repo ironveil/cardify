@@ -19,6 +19,7 @@
         "react": "^18.2.0",
         "react-cookie": "^4.1.1",
         "react-dom": "^18.2.0",
+        "react-icons": "^4.10.1",
         "sass": "^1.64.2",
         "short-uuid": "^4.2.2",
         "swr": "^2.2.0"
@@ -29,9 +30,11 @@
         "@types/react": "18.2.18",
         "prisma": "^5.1.1"
     },
-
+    
     "scripts": {
         "dev": "next",
-        "prisma": "prisma studio"
+        "prisma": "prisma studio",
+        "gendb": "prisma generate",
+        "build": "next build"
     }
 }
