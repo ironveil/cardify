@@ -7,6 +7,7 @@ import Link from "next/link"
 
 // Import styling
 import styles from "./GroupList.module.scss"
+import { LuHome, LuPlusCircle, LuSettings } from "react-icons/lu";
 
 // Group List
 export default function GroupList({ groups }) {
@@ -24,7 +25,7 @@ export default function GroupList({ groups }) {
                     className={Object.keys(router.query).length === 0 && router.pathname === "/dashboard" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard">
 
-                    <p>H</p>
+                    <p><LuHome size={24} /></p>
 
                 </Link>
 
@@ -44,10 +45,18 @@ export default function GroupList({ groups }) {
                 }
 
                 <Link
+                    className={router.pathname === "/dashboard/new?item=group" || router.pathname === "/dashboard/new?item=deck" ? styles.item + " " + styles.active : styles.item }
+                    href="/dashboard/new?item=group">
+
+                    <p><LuPlusCircle size={24} /></p>
+
+                </Link>
+
+                <Link
                     className={router.pathname === "/dashboard/settings" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard/settings">
 
-                    <p>S</p>
+                    <p><LuSettings size={24} /></p>
 
                 </Link>
             </div>
