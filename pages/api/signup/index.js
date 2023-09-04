@@ -1,4 +1,4 @@
-// --- Sign Up API Route ---
+// --- Signup New User ---
 
 // Import hashing module
 import bcrypt from "bcrypt"
@@ -9,7 +9,7 @@ import prisma from "../../../lib/prisma"
 // Import UUID generator
 import shortUUID from "short-uuid"
 
-// /api/login/signup
+// /api/signup
 export default function handler(req, res) {
 
     // Get data
@@ -21,16 +21,19 @@ export default function handler(req, res) {
 
     // Find if the username exists
     prisma.user.findFirst({
+
         where: {
             username: data.username
         }
+
     }).then((response) => {
 
-        // If the username already exists...
+        // If the username already exists
         if (response !== null) {
+
             res.send("false")
 
-        // If not...
+        // If it doesn't exist
         } else {
 
             // Generate a token
@@ -38,6 +41,7 @@ export default function handler(req, res) {
 
             // Create the user w/ token
             prisma.user.create({
+
                 data: {
                     username: data.username,
                     password: hashedPassword,
@@ -47,10 +51,12 @@ export default function handler(req, res) {
                             id: token
                         }
                     },
+
                     groups: {},
                     decks: {},
                     cards: {}
                 }
+                
             }).then(() => {
 
                 // Send the token to the user

@@ -1,3 +1,5 @@
+// --- Get All Groups ---
+
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
 
@@ -16,24 +18,30 @@ export default function handler(req, res) {
 
         // Find the user attached to the token
         prisma.token.findFirst({
+
             where: {
                 id: token
             },
             select: {
                 userId: true
             }
-        }).then((result) => (result.userId))
+
+        })
+        .then((result) => (result.userId))
         .then((userId) => {
 
             // Find all the groups belonging to that user
             prisma.group.findMany({
+
                 where: {
                     userId: userId
                 }
+                
             }).then((groups) => {
 
                 // Send them back
                 res.send(groups)
+                
             })
         })
     }

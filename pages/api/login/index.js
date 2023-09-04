@@ -1,4 +1,4 @@
-// --- Login API Route ---
+// --- Login User ---
 
 // Import hashing module
 import bcrypt from "bcrypt"
@@ -9,7 +9,7 @@ import prisma from "../../../lib/prisma"
 // Import UUID generator
 import shortUUID from "short-uuid"
 
-// /api/login/login
+// /api/login
 export default function handler(req, res) {
 
     // Get data
@@ -17,12 +17,14 @@ export default function handler(req, res) {
 
     // Try and find the user in the DB
     prisma.user.findFirst({
+
         where: {
             username: data.username
         },
         select: {
             password: true
         }
+
     }).then((result) => {
 
         // Gets the password, if it exists
@@ -40,11 +42,12 @@ export default function handler(req, res) {
         // If they match...
         if (correct) {
 
-            // Generate a token
+            // ...generate a token
             const token = shortUUID.generate()
 
             // Add the token to the database
             prisma.user.update({
+
                 where: {
                     username: data.username
                 },
@@ -55,13 +58,14 @@ export default function handler(req, res) {
                         }
                     }
                 }
+
             }).then(() => {
 
                 // Send the token to the user
                 res.send(token)
             })
 
-        // If they don't match...
+        // If they don't match
         } else {
             res.send(false)
         }

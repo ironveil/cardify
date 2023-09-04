@@ -1,4 +1,4 @@
-// --- Check Login API Route ---
+// --- Check User Login  ---
 
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
@@ -9,30 +9,25 @@ export default function handler(req, res) {
     // Get token from header
     let token = req.headers.authorization
 
-    // If no token, return 401 error
+    // If no token, return false
     if (token == "undefined") {
 
-        res.send(401)
+        res.send("false")
 
     } else {
         
         // Try and find the token in the DB
-        try {
-            prisma.token.findFirst({
-                where: {
-                    id: token
-                }
-            }).then((data) => {
+        prisma.token.findFirst({
 
-                // Send if the token is in the database or not
-                res.send(data !== null)
+            where: {
+                id: token
+            }
 
-            })
-        } catch {
+        }).then((data) => {
 
-            // If there is an error, send 'false'
-            res.send(false)
+            // Send if the token is in the database or not
+            res.send(data !== null)
 
-        }
+        })
     }
 }
