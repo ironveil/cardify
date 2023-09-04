@@ -18,6 +18,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Generate Prisma schema
+RUN npx prisma generate
+
 # Build app
 RUN yarn gendb
 RUN yarn build
