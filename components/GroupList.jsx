@@ -34,10 +34,10 @@ export default function GroupList({ groups }) {
                         return (
                             
                             <Link
-                                className={ router.query.group == group.id ? styles.item + " " + styles.active : styles.item} key={group.id}
+                                className={ (router.query.group == group.id & Object.keys(router.query).length == 1 ) ? styles.item + " " + styles.active : styles.item} key={group.id} 
                                 href={"/dashboard?group=" + group.id}>
 
-                                <p>{group.name[0]}</p>
+                                <p>{group.name[0].toUpperCase()}</p>
                                 
                             </Link>
                         )
@@ -45,7 +45,7 @@ export default function GroupList({ groups }) {
                 }
 
                 <Link
-                    className={router.pathname === "/dashboard/new?item=group" || router.pathname === "/dashboard/new?item=deck" ? styles.item + " " + styles.active : styles.item }
+                    className={router.pathname === "/dashboard/new" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard/new?item=group">
 
                     <p><LuPlusCircle size={24} /></p>
