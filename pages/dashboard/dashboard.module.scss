@@ -1,0 +1,105 @@
+// --- Dashboard SCSS Modue ---
+
+// Import variables
+@import "../../lib/variables";
+
+// Main container
+.main {
+    width: 100%;
+    height: 100vh;
+    
+    display: grid;
+    grid-template-columns: $w_groups auto;
+    grid-template-areas: "groups content";
+}
+
+// Main content
+.content {
+    grid-area: content;
+
+    background-color: $c_bg;
+}
+
+// Group headings
+.heading {
+    padding: 48px 64px 8px 64px;
+
+    font-size: $f_heading;
+    font-weight: 700;
+}
+
+// Delete current group button
+.delete {
+    padding: 12px;
+
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $c_layer;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+
+    transition: $trans background-color;
+    cursor: pointer;
+
+    // Icon
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    &:hover {
+        background-color: $c_failure;
+
+        svg {
+            color: $c_bg;
+        }
+    }
+}
+
+// Center text
+.center {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+        padding-bottom: 256px;
+
+        color: $c_layer;
+        font-size: $f_title;
+    }
+}
+
+// Settings page
+.settings {
+    padding: 16px 64px;
+}
+
+// Logout button
+.logout {
+    padding: 16px 32px;
+
+    background-color: $c_layer;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+    
+    cursor: pointer;
+
+    transition: $trans;
+
+    &:hover {
+        background-color: $c_failure;
+        color: $c_bg;
+    }
+}
