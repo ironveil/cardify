@@ -1,0 +1,105 @@
+// --- Deck List SCSS Module ---
+
+// Import variables
+@import "../lib/variables";
+
+// Deck List
+.list {
+    padding: 16px 64px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(400px, 1fr));
+    gap: 16px;
+}
+
+// Center text
+.center {
+    width: 100%;
+    height: 100%;
+
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+
+    // Text
+    p {
+        padding-bottom: 256px;
+
+        color: $c_layer;
+        font-size: $f_title;
+    }
+}
+
+// Individual deck
+.deck {
+    height: $h_deck;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    background-color: $c_layer;
+    border-radius: 8px;
+}
+
+// New deck
+.new {
+    justify-content: center;
+    align-items: center;
+
+    transition: $trans;
+
+    // New deck icon
+    svg {
+        width: 32px;
+        height: 32px;
+
+        color: $c_fg;
+    }
+
+    &:hover {
+        background-color: $c_accent;
+    }
+}
+
+// Deck title
+.title {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // Title
+    p {
+        font-size: $f_deck-header;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+
+// Deck options
+.buttons {
+    display: flex;
+    justify-content: space-between;
+
+    // Buttons
+    a {
+        margin: -12px;
+        padding: 12px;
+
+        color: $c_fg;
+        border-radius: 6px;
+
+        text-decoration: none;
+
+        transition: $trans;
+
+        &:hover {
+            background-color: $c_accent;
+        }
+    }
+}
