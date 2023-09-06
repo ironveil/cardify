@@ -11,7 +11,7 @@ import { LuPlusCircle } from "react-icons/lu"
 export default function DeckList({ decks, current }) {
 
     // Return if there are decks available
-    if (decks.length == 0 && current != "all") {
+    if (current != "all" || decks.length != 0) {
         return (
             <div className={styles.list}>
 

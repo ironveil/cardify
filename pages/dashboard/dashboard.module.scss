@@ -80,6 +80,46 @@
     }
 }
 
+// New deck/group
+.new {
+    padding: 16px 64px;
+
+    input {
+        min-width: 300px;
+
+        padding: 14px;
+        margin-right: 32px;
+
+        background-color: $c_layer;
+        border: 3px solid $c_layer;
+        border-radius: 7px;
+        outline: none;
+
+        transition: $trans;
+
+        &:focus {
+            border-color: $c_accent;
+        }
+    }
+
+    button {
+        padding: 16px 32px;
+
+        background-color: $c_layer;
+        border: none;
+        border-radius: 6px;
+        outline: none;
+        
+        cursor: pointer;
+
+        transition: $trans;
+
+        &:hover {
+            background-color: $c_accent;
+        }
+    }
+}
+
 // Settings page
 .settings {
     padding: 16px 64px;

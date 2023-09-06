@@ -34,7 +34,6 @@
     "scripts": {
         "dev": "next",
         "prisma": "prisma studio",
-        "gendb": "prisma generate",
         "build": "next build"
     }
 }

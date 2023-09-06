@@ -89,7 +89,7 @@ export default function New() {
 
             <>
                 <Head>
-                    <title>{"New Group - Cardify"}</title>
+                    <title>New Group - Cardify</title>
                 </Head>
 
                 <div className={styles.main}>
@@ -98,9 +98,9 @@ export default function New() {
                     <div className={styles.content}>
                         <p className={styles.heading}>New Group</p>
 
-                        <form onSubmit={newGroup}>
-                            <input type="text" name="name" id="name" />
-                            <button type="submit">Submit</button>
+                        <form className={styles.new} onSubmit={newGroup}>
+                            <input type="text" name="name" id="name" autoFocus />
+                            <button type="submit">Create</button>
                         </form>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ export default function New() {
 
             <>
                 <Head>
-                    <title>{"New Deck - Cardify"}</title>
+                    <title>New Deck - Cardify</title>
                 </Head>
 
                 <div className={styles.main}>
@@ -120,9 +120,9 @@ export default function New() {
                     <div className={styles.content}>
                         <p className={styles.heading}>New Deck</p>
 
-                        <form onSubmit={newDeck}>
-                            <input type="text" name="name" id="name" />
-                            <button type="submit">Submit</button>
+                        <form className={styles.new} onSubmit={newDeck}>
+                            <input type="text" name="name" id="name" autoFocus />
+                            <button type="submit">Create</button>
                         </form>
                     </div>
                 </div>

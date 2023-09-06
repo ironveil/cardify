@@ -43,8 +43,8 @@ export default function Index() {
 
     // Navigate based on token valid-ness
     if (data == true) {
-        router.push("/dashboard")
+        router.replace("/dashboard")
     } else {
-        router.push("/login")
+        router.replace("/login")
     }
 }

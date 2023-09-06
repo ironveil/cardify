@@ -65,7 +65,4 @@ model Card {
 
     front       String
     back        String
-    place       Int             @unique
-
-    lastRevised DateTime?
 }

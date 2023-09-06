@@ -34,59 +34,6 @@ export default function Login() {
     const token = cookies.token
     const { data, error, isLoading } = useSWR([ "/api/login/check", token ], () => fetcher("/api/login/check", token))
 
-    // Login form submit
-    function login(e) {
-        e.preventDefault()
-        
-        // Lock the form
-        setSentRequest(true)
-
-        // Get form data
-        const data = {
-            username: e.target.username.value || "",
-            password: e.target.password.value || ""
-        }
-        const JSONdata = JSON.stringify(data)
-
-        // Send data to API backend
-        fetch("/api/login", { method: "POST", body: JSONdata })
-            .then((res) => res.text())
-            .then((resData) => {
-                
-                // Check if data returns a 'token'
-                if (resData != "false") {
-
-                    // Remove any old tokens
-                    removeCookie("token")
-
-                    // TODO: Use API to remove old tokens from DB
-
-                    // Set token
-                    setCookie("token", resData)
-
-                    // Unlock form
-                    setSentRequest(false)
-
-                    // Go to the dashboard
-                    router.push("/dashboard")
-
-                } else {
-                    
-                    // Toggle invalid banner
-                    showInvalidCred(true)
-
-                    // Unlock form
-                    setSentRequest(false)
-
-                    // Disable invalid banner after 3 seconds
-                    setTimeout(() => {
-                        showInvalidCred(false)
-                    }, 3000)
-                }
-            }
-        )
-    }
-
     // Check if user is already logged in
     if (data == true) {
 
@@ -94,6 +41,59 @@ export default function Login() {
         router.push("/dashboard")
 
     } else if (isLoading == false) {
+
+        // Login form submit
+        function login(e) {
+            e.preventDefault()
+            
+            // Lock the form
+            setSentRequest(true)
+
+            // Get form data
+            const data = {
+                username: e.target.username.value || "",
+                password: e.target.password.value || ""
+            }
+            const JSONdata = JSON.stringify(data)
+
+            // Send data to API backend
+            fetch("/api/login", { method: "POST", body: JSONdata })
+                .then((res) => res.text())
+                .then((resData) => {
+                    
+                    // Check if data returns a 'token'
+                    if (resData != "false") {
+
+                        // Remove any old tokens
+                        removeCookie("token")
+
+                        // TODO: Use API to remove old tokens from DB
+
+                        // Set token
+                        setCookie("token", resData)
+
+                        // Unlock form
+                        setSentRequest(false)
+
+                        // Go to the dashboard
+                        router.push("/dashboard")
+
+                    } else {
+                        
+                        // Toggle invalid banner
+                        showInvalidCred(true)
+
+                        // Unlock form
+                        setSentRequest(false)
+
+                        // Disable invalid banner after 3 seconds
+                        setTimeout(() => {
+                            showInvalidCred(false)
+                        }, 3000)
+                    }
+                }
+            )
+        }
 
         // Login page
         return (
