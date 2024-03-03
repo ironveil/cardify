@@ -1,6 +1,6 @@
-// --- Deck List Component
+// --- Deck List Component ---
 
-// Import Modules
+// Import modules
 import Link from "next/link"
 
 // Import styling
@@ -12,15 +12,23 @@ export default function DeckList({ decks, current }) {
 
     // Return if there are decks available
     if (current != "all" || decks.length != 0) {
+
         return (
             <div className={styles.list}>
 
-                {decks.map((deck) => <DeckItem key={deck.id} deck={deck} /> )}
+                {decks.map((deck) => (
+                    
+                    <DeckItem key={deck.id} deck={deck} /> )
+                
+                )}
 
                 { current !== "all" && (
 
-                    <Link className={styles.deck + " " + styles.new} href={"/dashboard/new?item=deck&group=" + current}>
+                    <Link className={styles.deck + " " + styles.new}
+                    href={"/dashboard/new?item=deck&group=" + current}>
+
                         <LuPlusCircle />
+
                     </Link>
 
                 )}
@@ -30,6 +38,7 @@ export default function DeckList({ decks, current }) {
 
     // Return if no decks on homepage
     } else {
+        
         return (
 
             <div className={styles.center}>
