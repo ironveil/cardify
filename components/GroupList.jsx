@@ -1,6 +1,6 @@
 // --- Group List Component ---
 
-// Import Modules
+// Import modules
 import { useRouter } from "next/router"
 
 import Link from "next/link"
@@ -25,12 +25,15 @@ export default function GroupList({ groups }) {
                     className={Object.keys(router.query).length === 0 && router.pathname === "/dashboard" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard">
 
-                    <p><LuHome size={24} /></p>
+                    <p>
+                        <LuHome size={24} />
+                    </p>
 
                 </Link>
 
                 {
                     groups.map((group) => {
+
                         return (
                             
                             <Link
@@ -48,7 +51,9 @@ export default function GroupList({ groups }) {
                     className={router.pathname === "/dashboard/new" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard/new?item=group">
 
-                    <p><LuPlusCircle size={24} /></p>
+                    <p>
+                        <LuPlusCircle size={24} />
+                    </p>
 
                 </Link>
 
@@ -56,7 +61,9 @@ export default function GroupList({ groups }) {
                     className={router.pathname === "/dashboard/settings" ? styles.item + " " + styles.active : styles.item }
                     href="/dashboard/settings">
 
-                    <p><LuSettings size={24} /></p>
+                    <p>
+                        <LuSettings size={24} />
+                    </p>
 
                 </Link>
             </div>

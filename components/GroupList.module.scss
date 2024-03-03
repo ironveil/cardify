@@ -37,15 +37,15 @@
     
     transition: $trans;
 
-    &:hover {
-        background-color: $c_accent;
-    }
-
     // Item Text
     p {
         color: $c_fg;
 
         font-size: $f_group-item;
+    }
+
+    &:hover {
+        background-color: $c_accent;
     }
 }
 
