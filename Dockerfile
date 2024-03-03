@@ -22,7 +22,6 @@ COPY . .
 RUN npx prisma generate
 
 # Build app
-RUN yarn gendb
 RUN yarn build
 
 # Setup production environment
