@@ -65,4 +65,5 @@ model Card {
 
     front       String
     back        String
+    weight      Int
 }
