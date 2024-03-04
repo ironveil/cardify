@@ -29,7 +29,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (parseInt(res.userId)))
+        }).then((result) => (parseInt(result.userId)))
         .then((userId) => {
 
             // Find the specific deck
@@ -43,7 +43,7 @@ export default function handler(req, res) {
                     groupId: true
                 }
 
-            }).then((res) => res.groupId)
+            }).then((result) => result.groupId)
             .then((groupId) => {
 
                 // Find the group attached to the deck

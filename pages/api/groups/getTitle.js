@@ -29,7 +29,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (parseInt(res.userId)))
+        }).then((result) => (parseInt(result.userId)))
         .then((userId) => {
 
             // If all groups wanted

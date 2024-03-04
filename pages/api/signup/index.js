@@ -26,10 +26,10 @@ export default function handler(req, res) {
             username: data.username
         }
 
-    }).then((res) => {
+    }).then((username) => {
 
         // If the username already exists
-        if (res !== null) {
+        if (username !== null) {
 
             // Send back 409
             res.send(409)

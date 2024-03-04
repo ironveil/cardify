@@ -25,13 +25,13 @@ export default function handler(req, res) {
             password: true
         }
 
-    }).then((res) => {
+    }).then((result) => {
 
         // Gets the password, if it exists
         let dbPass
 
         try {
-            dbPass = res.password
+            dbPass = result.password
         } catch {
             dbPass = ""
         }

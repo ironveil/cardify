@@ -31,7 +31,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (res.userId))
+        }).then((result) => (result.userId))
         .then((userId) => {
 
             // Update the specific deck

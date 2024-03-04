@@ -32,7 +32,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (res.userId))
+        }).then((result) => (result.userId))
         .then((userId) => {
 
             // Find the group associated with the deck

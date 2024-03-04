@@ -30,7 +30,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (res.userId))
+        }).then((result) => (result.userId))
         .then((userId) => {
 
             // Get current weight
@@ -44,7 +44,7 @@ export default function handler(req, res) {
                     weight: true
                 }
 
-            }).then((res) => (res.weight))
+            }).then((result) => (result.weight))
             .then((calcWeight) => (calcWeight = calcWeight + 1 + remembered))
             .then((weight) => {
 

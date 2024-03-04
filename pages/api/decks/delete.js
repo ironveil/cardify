@@ -30,7 +30,7 @@ export default function handler(req, res) {
             }
 
         })
-        .then((res) => parseInt(res.userId))
+        .then((result) => parseInt(result.userId))
         .then((userId) => {
 
             // Delete cards
@@ -51,10 +51,10 @@ export default function handler(req, res) {
                         userId: userId,
                     }
 
-                }).then((res) => {
+                }).then((result) => {
 
                     // Return if successful
-                    res.send(res !== null)
+                    res.send(result !== null)
 
                 })
             })

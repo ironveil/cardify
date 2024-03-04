@@ -26,7 +26,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((res) => (res.userId))
+        }).then((result) => (result.userId))
         .then((userId) => {
 
             // Find all the groups belonging to that user
