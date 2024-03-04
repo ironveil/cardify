@@ -1,10 +1,10 @@
 // --- Signup New User ---
 
-// Import hashing module
-import bcrypt from "bcrypt"
-
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
+
+// Import hashing module
+import bcrypt from "bcrypt"
 
 // Import UUID generator
 import shortUUID from "short-uuid"
@@ -26,12 +26,13 @@ export default function handler(req, res) {
             username: data.username
         }
 
-    }).then((response) => {
+    }).then((res) => {
 
         // If the username already exists
-        if (response !== null) {
+        if (res !== null) {
 
-            res.send("false")
+            // Send back 409
+            res.send(409)
 
         // If it doesn't exist
         } else {
