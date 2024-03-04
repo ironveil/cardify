@@ -1,4 +1,4 @@
-// --- Get Title Of Group ---
+// --- Get Title of Group ---
 
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
@@ -12,10 +12,10 @@ export default function handler(req, res) {
     // Get data
     const groupId = req.query.group
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -29,12 +29,13 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (parseInt(result.userId)))
+        }).then((res) => (parseInt(res.userId)))
         .then((userId) => {
 
             // If all groups wanted
             if (groupId === "all") {
 
+                // Send generic title
                 res.send({ name: "All Decks"})
 
             // If specific group wanted
