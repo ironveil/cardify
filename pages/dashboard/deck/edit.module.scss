@@ -1,0 +1,88 @@
+// --- Edit SCSS Module ---
+
+// Import variables
+@import "../../../lib/variables";
+
+// Main container
+.main {
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+    background-color: $c_bg;
+}
+
+// Navbar
+.navbar {
+    height: $h_nav;
+    padding: 0 16px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: $c_surface;
+
+    // Back button
+    a {
+        padding: 12px;
+
+        border-radius: 8px;
+        color: $c_bg;
+        text-decoration: none;
+
+        transition: $trans;
+
+        &:hover {
+            background-color: $c_accent;
+            color: $c_fg;
+        }
+    }
+}
+
+// Main area
+.content {
+    width: 100%;
+    height: auto;
+}
+
+// Flashcards list
+.list {
+    width: $w_card-list;
+    padding: 16px;
+
+    display: grid;
+    gap: 16px;
+}
+
+// Dual-buttons at the top of the list
+.dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+// Individual flashcards in the list
+.card {
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background-color: $c_layer;
+
+    cursor: pointer;
+
+    transition: $trans;
+
+    &:hover {
+        background-color: $c_accent;
+    }
+}
+
+// Currently-selected card
+.currentCard {
+    background-color: $c_accent;
+}
