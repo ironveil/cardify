@@ -15,10 +15,10 @@ export default function handler(req, res) {
     const cardBack = data.back
     const cardId = parseInt(req.query.card)
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -32,7 +32,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Update the specific card
@@ -47,10 +47,10 @@ export default function handler(req, res) {
                     back: cardBack
                 }
 
-            }).then((result) => {
+            }).then((updatedCard) => {
 
                 // Send the result back
-                res.send(result)
+                res.send(updatedCard)
 
             })
         })
