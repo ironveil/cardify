@@ -12,10 +12,10 @@ export default function handler(req, res) {
     // Get data
     const groupId = parseInt(req.query.group)
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -30,7 +30,7 @@ export default function handler(req, res) {
             }
 
         })
-        .then((result) => parseInt(result.userId))
+        .then((res) => parseInt(res.userId))
         .then((userId) => {
 
             // Delete cards
@@ -61,10 +61,10 @@ export default function handler(req, res) {
                             id: groupId
                         }
 
-                    }).then((result) => {
+                    }).then((res) => {
 
                         // Return if successful
-                        res.send(result !== null)
+                        res.send(res !== null)
                         
                     })
                 })
