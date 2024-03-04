@@ -3,7 +3,7 @@
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
 
-// /api/groups/new?name=
+// /api/decks/new?name=
 export default function handler(req, res) {
 
     // Get token from header
@@ -14,10 +14,10 @@ export default function handler(req, res) {
     const deckName = data.name
     const groupId = parseInt(req.query.group)
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -31,7 +31,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Create deck
@@ -43,10 +43,10 @@ export default function handler(req, res) {
                     groupId: groupId
                 }
                 
-            }).then((deckResult) => {
+            }).then((deck) => {
 
-                // Send back the new group data
-                res.send(deckResult)
+                // Send back the new deck data
+                res.send(deck)
 
             })
         })
