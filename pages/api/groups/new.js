@@ -13,10 +13,10 @@ export default function handler(req, res) {
     const data = JSON.parse(req.body)
     const groupName = data.name
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -30,7 +30,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Create group
@@ -42,16 +42,18 @@ export default function handler(req, res) {
                         userId: userId
                     }
 
-                }).then((groupResult) => {
+                }).then((group) => {
 
                     // Send back the new group data
-                    res.send(groupResult)
+                    res.send(group)
 
                 })
 
-            // Return false if error
+            // Return 500 if error
             } catch {
-                res.send("false")
+
+                res.send(500)
+
             }
         })
     }
