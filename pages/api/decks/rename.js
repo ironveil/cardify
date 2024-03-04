@@ -14,10 +14,10 @@ export default function handler(req, res) {
     const deckName = data.name
     const deckId = parseInt(req.query.deck)
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -31,7 +31,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Update the specific deck
@@ -45,10 +45,10 @@ export default function handler(req, res) {
                     name: deckName
                 }
 
-            }).then((result) => {
+            }).then((deck) => {
 
-                // Send the result back
-                res.send(result)
+                // Send it back
+                res.send(deck)
 
             })
         })
