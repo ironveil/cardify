@@ -12,10 +12,10 @@ export default function handler(req, res) {
     // Get data
     const deckId = req.query.deck
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -29,7 +29,7 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (parseInt(result.userId)))
+        }).then((res) => (parseInt(res.userId)))
         .then((userId) => {
 
             // Find the specific deck
@@ -43,7 +43,7 @@ export default function handler(req, res) {
                     groupId: true
                 }
 
-            }).then((groupId) => groupId.groupId)
+            }).then((res) => res.groupId)
             .then((groupId) => {
 
                 // Find the group attached to the deck
@@ -54,10 +54,10 @@ export default function handler(req, res) {
                         id: groupId
                     }
 
-                }).then((info) => {
+                }).then((group) => {
 
-                    // Send the result bacak
-                    res.send(info)
+                    // Send it back
+                    res.send(group)
 
                 })
             })

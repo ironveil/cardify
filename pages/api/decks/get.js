@@ -3,16 +3,16 @@
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
 
-// /api/decks/get?group= or ?deck=
+// /api/decks/get?group=&?deck=
 export default function handler(req, res) {
 
     // Get token from header
     let token = req.headers.authorization
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -26,15 +26,15 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Get wanted group or deck
-            let groupId = req.query.group
-            let deckId = req.query.deck
+            var groupId = req.query.group
+            var deckId = req.query.deck
 
             // Find all the decks belonging to that user
-            if (groupId === "all") {
+            if (groupId == "all") {
 
                 prisma.deck.findMany({
                     where: {
@@ -53,7 +53,7 @@ export default function handler(req, res) {
                 // Turn ID into integer
                 groupId = parseInt(groupId)
 
-                // Gind all decks belonging to that group
+                // Find all decks belonging to that group
                 prisma.deck.findMany({
 
                     where: {
@@ -69,8 +69,10 @@ export default function handler(req, res) {
                 })
             } else if (deckId) {
 
+                // Turn ID into integer
                 deckId = parseInt(deckId)
 
+                // Find the specified deck
                 prisma.deck.findFirst({
 
                     where: {
@@ -80,10 +82,10 @@ export default function handler(req, res) {
 
                 }).then((deck) => {
 
+                    // Send it back
                     res.send(deck)
                     
                 })
-
             }
         })
     }
