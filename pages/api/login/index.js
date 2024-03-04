@@ -1,10 +1,10 @@
 // --- Login User ---
 
-// Import hashing module
-import bcrypt from "bcrypt"
-
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
+
+// Import hashing module
+import bcrypt from "bcrypt"
 
 // Import UUID generator
 import shortUUID from "short-uuid"
@@ -25,13 +25,13 @@ export default function handler(req, res) {
             password: true
         }
 
-    }).then((result) => {
+    }).then((res) => {
 
         // Gets the password, if it exists
         let dbPass
 
         try {
-            dbPass = result.password    
+            dbPass = res.password
         } catch {
             dbPass = ""
         }
@@ -67,7 +67,9 @@ export default function handler(req, res) {
 
         // If they don't match
         } else {
-            res.send(false)
+
+            res.send(401)
+
         }
     })
 }
