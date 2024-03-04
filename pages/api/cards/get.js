@@ -3,16 +3,16 @@
 // Import Prisma DB
 import prisma from "../../../lib/prisma"
 
-// /api/cards/get?deck=
+// /api/cards/get?deck=&card=
 export default function handler(req, res) {
 
     // Get token from header
     let token = req.headers.authorization
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
 
@@ -26,26 +26,46 @@ export default function handler(req, res) {
                 userId: true
             }
 
-        }).then((result) => (result.userId))
+        }).then((res) => (res.userId))
         .then((userId) => {
 
             // Get wanted deck
-            let deckId = parseInt(req.query.deck)
+            const deckId = parseInt(req.query.deck)
 
-            // Gind all cards belonging to that deck
-            prisma.card.findMany({
+            // Find a specific card
+            if (req.query.card != undefined) {
 
-                where: {
-                    userId: userId,
-                    deckId: deckId
-                }
-                
-            }).then((cards) => {
+                prisma.card.findMany({
 
-                // Send them back
-                res.send(cards)
+                    where: {
+                        id: parseInt(req.query.card),
+                        userId: userId,
+                        deckId: deckId
+                    }
+                    
+                }).then((card) => {
 
-            })
+                    // Send the specific card back
+                    res.send(card[0])
+
+                })
+
+            } else {
+
+                // Find all the cards
+                prisma.card.findMany({
+
+                    where: {
+                        userId: userId,
+                        deckId: deckId
+                    }
+                    
+                }).then((cards) => {
+                    
+                    // Send them back
+                    res.send(cards)
+                })
+            }
         })
     }
 }
