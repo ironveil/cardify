@@ -9,10 +9,10 @@ export default function handler(req, res) {
     // Get token from header
     let token = req.headers.authorization
 
-    // If no token, return false
+    // If no token, return 401
     if (token == "undefined") {
 
-        res.send("false")
+        res.send(401)
 
     } else {
         
