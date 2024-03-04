@@ -62,7 +62,7 @@ export default function Login() {
                 .then((resData) => {
                     
                     // Check if data returns a 'token'
-                    if (resData != "false") {
+                    if (resData != 401) {
 
                         // Remove any old tokens
                         removeCookie("token")

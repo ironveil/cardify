@@ -51,6 +51,7 @@ export default function Signup() {
                     console.log(token)
 
                     if (token !== "false") {
+                        
                         // Remove any old tokens
                         removeCookie("token")
 
