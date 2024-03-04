@@ -51,7 +51,7 @@ export default function handler(req, res) {
                 })
 
                 // Randomly select the card with the lowest probability
-                const weightedChoice = randomWeightedChoice(weightedCards, 100)
+                const weightedChoice = parseInt(randomWeightedChoice(weightedCards, 100))
 
                 // Find this specific card
                 prisma.card.findFirst({
@@ -65,7 +65,7 @@ export default function handler(req, res) {
                 }).then((card) => {
 
                     // Send the random card back
-                    res.send(card[0])
+                    res.send(card)
 
                 })
             })
