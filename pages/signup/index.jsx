@@ -41,21 +41,20 @@ export default function Signup() {
         }
         const JSONdata = JSON.stringify(data)
 
-        // Check if passwords match
-        if (data.password !== "" && data.password === data.passwordConfirm) {
+        // Regex string for username validation
+        const usernameRegex = /^[a-z0-9]+(?:[-._][a-z0-9]+)*$/g
+
+        // Check if credentials are valid
+        if (usernameRegex.test(data.username) && data.username.length >= 4 && data.username.length <= 32 && data.password !== "" && data.password === data.passwordConfirm && data.password.length >= 8) {
             
             fetch("/api/signup", { method: "POST", body: JSONdata })
                 .then((res) => res.text())
                 .then((token) => {
 
-                    console.log(token)
-
-                    if (token !== "false") {
+                    if (token != 409) {
                         
                         // Remove any old tokens
                         removeCookie("token")
-
-                        // TODO: Use API to remove old tokens from DB
 
                         // Set token
                         setCookie("token", token)
@@ -81,7 +80,29 @@ export default function Signup() {
                 }
             )
 
-        } else {
+        } else if (data.username.length < 4) {
+
+            // Alert user that username is too short
+            showInvalidCred("Username is too short.")
+            setSentRequest(false)
+
+            // Disable invalid banner after 3 seconds
+            setTimeout(() => {
+                showInvalidCred("")
+            }, 3000)
+        
+        } else if (data.username.length > 32) {
+
+            // Alert user that username is too long
+            showInvalidCred("Username is too long.")
+            setSentRequest(false)
+
+            // Disable invalid banner after 3 seconds
+            setTimeout(() => {
+                showInvalidCred("")
+            }, 3000)
+
+        } else if (data.password !== data.passwordConfirm) {
 
             // Alert user that passwords do not match & unlock form
             showInvalidCred("Passwords do not match.")
@@ -91,6 +112,40 @@ export default function Signup() {
             setTimeout(() => {
                 showInvalidCred("")
             }, 3000)
+        
+        } else if (data.password === "" || data.passwordConfirm === "") {
+            
+            // Alert user that they haven't filled out both fields
+            showInvalidCred("Please fill out both password fields.")
+            setSentRequest(false)
+
+            // Disable invalid banner after 3 seconds
+            setTimeout(() => {
+                showInvalidCred("")
+            }, 3000)
+
+        } else if (data.password.length < 8) {
+            
+            // Alert user that their password isn't long enough
+            showInvalidCred("Please ensure that your password is at least 8 characters long.")
+            setSentRequest(false)
+
+            // Disable invalid banner after 3 seconds
+            setTimeout(() => {
+                showInvalidCred("")
+            }, 3000)
+            
+        } else if (!usernameRegex.test(data.username)) {
+
+            // Alert user that username contains invalid characters
+            showInvalidCred("Username contains invalid characters.")
+            setSentRequest(false)
+
+            // Disable invalid banner after 3 seconds
+            setTimeout(() => {
+                showInvalidCred("")
+            }, 3000)
+
         }
     }
 
