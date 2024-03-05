@@ -99,7 +99,7 @@ export default function New() {
                         <p className={styles.heading}>New Group</p>
 
                         <form className={styles.new} onSubmit={newGroup}>
-                            <input type="text" name="name" id="name" autoFocus />
+                            <input type="text" name="name" id="name" autoFocus required />
                             <button type="submit">Create</button>
                         </form>
                     </div>
@@ -121,7 +121,7 @@ export default function New() {
                         <p className={styles.heading}>New Deck</p>
 
                         <form className={styles.new} onSubmit={newDeck}>
-                            <input type="text" name="name" id="name" autoFocus />
+                            <input type="text" name="name" id="name" autoFocus required />
                             <button type="submit">Create</button>
                         </form>
                     </div>
