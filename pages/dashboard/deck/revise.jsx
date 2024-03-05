@@ -7,6 +7,9 @@ import Link from "next/link"
 import useSWR from 'swr'
 import { useMemo, useState } from "react"
 
+// Import styling
+import styles from "./revise.module.scss"
+
 // API fetcher
 const fetcher = (url, token) => fetch(url, { headers: { "Authorization": token } }).then((res) => res.json())
 
@@ -44,7 +47,7 @@ export default function Revise() {
         // Render the main page
         return (
 
-            <div>
+            <div className={styles.main}>
 
                 <ReviseNavbar
                     deck={deck}
@@ -81,9 +84,8 @@ function ReviseNavbar({ deck, token }) {
 
         // Render the navbar
         return (
-            <div>
+            <div className={styles.navbar}>
                 <Link href={"/dashboard?group=" + data.groupId}>Back</Link>
-                <p>Revising {data.name}</p>
             </div>
         )
     }
@@ -92,70 +94,76 @@ function ReviseNavbar({ deck, token }) {
 // Main content
 function ReviseContent({ deck, cardFront, setCardFront, cardBack, setCardBack, cardSide, setCardSide, cardId, setCardId, router, token }) {
 
-    // Get card data
-    const weightedCardUrl = "/api/cards/getWeighted?deck=" + deck
+    if (router.query.deck !== undefined) {
 
-    // Only refresh ONCE
-    useMemo( () => {
+        // Get card data
+        const weightedCardUrl = "/api/cards/getWeighted?deck=" + router.query.deck
 
-        // Fetch a random weighted card
-        fetch(weightedCardUrl, { headers: { "Authorization": token } })
-        .then((res) => res.json())
-        .then((card) => {
+        // Only refresh ONCE
+        useMemo( () => {
 
-            // Set the card properties
-            setCardFront(card.front)
-            setCardBack(card.back)
-            setCardId(card.id)
+            // Fetch a random weighted card
+            fetch(weightedCardUrl, { headers: { "Authorization": token } })
+            .then((res) => res.json())
+            .then((card) => {
 
-        })
+                // Set the card properties
+                setCardFront(card.front)
+                setCardBack(card.back)
+                setCardId(card.id)
 
-    }, [])
+            })
 
-    // Get the next card
-    function nextCard(ifRemembered) {
+        }, [])
 
-        // Update the weight of the card
-        const updateWeightUrl = "/api/cards/updateWeight?card=" + cardId + "&remembered=" + ifRemembered
-        fetch(updateWeightUrl, { headers: { "Authorization": token } }).then(() => router.reload())
+        // Get the next card
+        function nextCard(ifRemembered) {
 
-    }
+            // Update the weight of the card
+            const updateWeightUrl = "/api/cards/updateWeight?card=" + cardId + "&remembered=" + ifRemembered
+            fetch(updateWeightUrl, { headers: { "Authorization": token } }).then(() => router.reload())
 
-    // Render the main content
-    return (
-        <div>
+        }
 
-            { cardSide == 0 ? (
+        // Render the main content
+        return (
+            <div className={styles.content}>
 
-                <div>
+                { cardSide == 0 ? (
 
-                    <p>{cardFront}</p>
+                    <div className={styles.flashcard}>
 
-                </div>
+                        <p>{cardFront}</p>
 
-            ) : (
+                    </div>
 
-                <div>
+                ) : (
 
-                    <p>{cardBack}</p>
+                    <div className={styles.flashcard}>
 
-                </div>
+                        <p>{cardBack}</p>
 
-            )}
+                    </div>
 
-            <div>
-
-                { cardSide == 1 && (
-                    <button onClick={() => nextCard(0) }>Forgotten</button>
                 )}
 
-                <button onClick={() => setCardSide(cardSide == 0 ? 1 : 0)}>Flip</button>
+                <div className={styles.buttons}>
 
-                { cardSide == 1 && (
-                    <button onClick={() => nextCard(1) }>Remembered</button>
-                )}
-                
+                    { cardSide == 1 && (
+                        <button className={styles.forgottenButton}
+                                onClick={() => nextCard(0) }>Forgotten</button>
+                    )}
+
+                    <button className={styles.flipButton}
+                            onClick={() => setCardSide(cardSide == 0 ? 1 : 0)}>Flip</button>
+
+                    { cardSide == 1 && (
+                        <button className={styles.rememberedButton}
+                                onClick={() => nextCard(1) }>Remembered</button>
+                    )}
+                    
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
